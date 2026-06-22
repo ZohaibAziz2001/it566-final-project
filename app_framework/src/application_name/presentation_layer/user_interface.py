@@ -19,6 +19,34 @@ class UserInterface(ApplicationBase):
 
 
 
-    def start(self):
-        print("Welcome to E-Commerce Products and Collections")
-        self._logger.log_debug(f'{inspect.currentframe().f_code.co_name}: User interface started!')
+  def start(self):
+    """Start main user interface"""
+
+    self._logger.log_debug(
+        f'{inspect.currentframe().f_code.co_name}: User interface started'
+    )
+
+    while True:
+        print('\n=== E-Commerce Products and Collections ===')
+        print('1. Products')
+        print('2. Collections')
+        print('3. Product-Collection Relationships')
+        print('4. Exit')
+
+        choice = input('Enter your choice: ')
+
+        if choice == '1':
+            print('Products menu coming soon...')
+
+        elif choice == '2':
+            print('Collections menu coming soon...')
+
+        elif choice == '3':
+            print('Relationships menu coming soon...')
+
+        elif choice == '4':
+            print('Goodbye')
+            break
+
+        else:
+            print('Invalid choice')
