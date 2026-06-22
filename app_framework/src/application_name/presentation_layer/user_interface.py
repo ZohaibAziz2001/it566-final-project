@@ -20,5 +20,5 @@ class UserInterface(ApplicationBase):
 
 
     def start(self):
-        """Start main user interface."""
+        print("Welcome to E-Commerce Products and Collections")
         self._logger.log_debug(f'{inspect.currentframe().f_code.co_name}: User interface started!')
