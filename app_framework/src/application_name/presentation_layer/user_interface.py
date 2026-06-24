@@ -16,7 +16,6 @@ class UserInterface(ApplicationBase):
         super().__init__(
             subclass_name=self.__class__.__name__,
             logfile_prefix_name=self.META["log_prefix"]
-        )
 
         self.DB = AppServices(config)
 
@@ -31,27 +30,34 @@ class UserInterface(ApplicationBase):
             f'{inspect.currentframe().f_code.co_name}: User interface started!'
         )
 
-        while True:
-            print('\n=== E-Commerce Products and Collections ===')
-            print('1. Products')
-            print('2. Collections')
-            print('3. Product-Collection Relationships')
-            print('4. Exit')
+def start(self):
+    """Start main user interface"""
 
-            choice = input('Enter your choice: ')
+    self._logger.log_debug(
+        f'{inspect.currentframe().f_code.co_name}: User interface started'
+    )
 
-            if choice == '1':
-                print('Products menu coming soon...')
+    while True:
+        print('\n=== E-Commerce Products and Collections ===')
+        print('1. Products')
+        print('2. Collections')
+        print('3. Product-Collection Relationships')
+        print('4. Exit')
 
-            elif choice == '2':
-                print('Collections menu coming soon...')
+        choice = input('Enter your choice: ')
 
-            elif choice == '3':
-                print('Relationships menu coming soon...')
+        if choice == '1':
+            print('Products menu coming soon...')
 
-            elif choice == '4':
-                print('Goodbye!')
-                break
+        elif choice == '2':
+            print('Collections menu coming soon...')
 
-            else:
-                print('Invalid choice')
+        elif choice == '3':
+            print('Relationships menu coming soon...')
+
+        elif choice == '4':
+            print('Goodbye!')
+            break
+
+        else:
+            print('Invalid choice')
