@@ -16,6 +16,7 @@ class UserInterface(ApplicationBase):
         super().__init__(
             subclass_name=self.__class__.__name__,
             logfile_prefix_name=self.META["log_prefix"]
+        )
 
         self.DB = AppServices(config)
 
@@ -24,40 +25,33 @@ class UserInterface(ApplicationBase):
         )
 
     def start(self):
-        """Start main user interface."""
+        """Start main user interface"""
 
         self._logger.log_debug(
-            f'{inspect.currentframe().f_code.co_name}: User interface started!'
+            f'{inspect.currentframe().f_code.co_name}: User interface started'
         )
 
-def start(self):
-    """Start main user interface"""
+        while True:
+            print('\n=== E-Commerce Products and Collections ===')
+            print('1. Products')
+            print('2. Collections')
+            print('3. Product-Collection Relationships')
+            print('4. Exit')
 
-    self._logger.log_debug(
-        f'{inspect.currentframe().f_code.co_name}: User interface started'
-    )
+            choice = input('Enter your choice: ')
 
-    while True:
-        print('\n=== E-Commerce Products and Collections ===')
-        print('1. Products')
-        print('2. Collections')
-        print('3. Product-Collection Relationships')
-        print('4. Exit')
+            if choice == '1':
+                print('Products menu coming soon...')
 
-        choice = input('Enter your choice: ')
+            elif choice == '2':
+                print('Collections menu coming soon...')
 
-        if choice == '1':
-            print('Products menu coming soon...')
+            elif choice == '3':
+                print('Relationships menu coming soon...')
 
-        elif choice == '2':
-            print('Collections menu coming soon...')
+            elif choice == '4':
+                print('Goodbye')
+                break
 
-        elif choice == '3':
-            print('Relationships menu coming soon...')
-
-        elif choice == '4':
-            print('Goodbye!')
-            break
-
-        else:
-            print('Invalid choice')
+            else:
+                print('Invalid choice')
