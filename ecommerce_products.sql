@@ -1,3 +1,7 @@
+DROP DATABASE IF EXISTS ecommerce_products;
+CREATE DATABASE ecommerce_products;
+USE ecommerce_products;
+
 -- phpMyAdmin SQL Dump
 -- version 5.2.3deb1
 -- https://www.phpmyadmin.net/
