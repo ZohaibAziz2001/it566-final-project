@@ -1,0 +1,24 @@
+{
+	"meta":{
+		"version": "v1",
+		"app_name": "Application Name",
+		"log_prefix": "application_name"
+	},
+	"database":{
+		"pool":{
+			"name": "app_name_db_bool",
+			"size": 10,
+			"reset_session": true,
+			"use_pure": true
+		},
+		"connection":{
+			"config":{
+				"database": "ecommerce_products",
+				"user": "ecommerce_user",
+                                "password": "Zohaib",
+				"host": "localhost",
+				"port": 3306
+			}
+		}
+	}
+}
