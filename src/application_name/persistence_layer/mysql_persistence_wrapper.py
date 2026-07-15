@@ -41,7 +41,6 @@ class MySQLPersistenceWrapper(ApplicationBase):
         self._connection_pool = self._initialize_database_connection_pool(
             self.DB_CONFIG
         )
-
     def get_all_products(self):
         """Fetch all products from database."""
         try:
@@ -59,6 +58,28 @@ class MySQLPersistenceWrapper(ApplicationBase):
         except Exception as e:
             self._logger.log_error(f"get_all_products error: {e}")
             return []
+
+    def add_product(self, name, price, description):
+        """Insert a new product."""
+
+        try:
+            conn = self._connection_pool.get_connection()
+            cursor = conn.cursor()
+
+            sql = """
+            INSERT INTO product
+            (product_name, price, description)
+            VALUES (%s, %s, %s)
+            """
+
+            cursor.execute(sql, (name, price, description))
+            conn.commit()
+
+            cursor.close()
+            conn.close()
+
+        except Exception as e:
+            self._logger.log_error(f"add_product error: {e}")
 
     ##### Private Utility Methods #####
 
@@ -97,4 +118,33 @@ class MySQLPersistenceWrapper(ApplicationBase):
             )
             self._logger.log_error(
                 f'{inspect.currentframe().f_code.co_name}: Check DB config:\n{json.dumps(self.DATABASE)}'
+            )
+    def update_product(self, product_id, name, price, description):
+        """Update a product."""
+
+        try:
+            conn = self._connection_pool.get_connection()
+            cursor = conn.cursor()
+
+            sql = """
+            UPDATE product
+            SET product_name = %s,
+                price = %s,
+                description = %s
+            WHERE product_id = %s
+            """
+
+            cursor.execute(
+                sql,
+                (name, price, description, product_id)
+            )
+
+            conn.commit()
+
+            cursor.close()
+            conn.close()
+
+        except Exception as e:
+            self._logger.log_error(
+                f"update_product error: {e}"
             )

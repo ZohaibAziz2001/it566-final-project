@@ -56,46 +56,59 @@ class UserInterface(ApplicationBase):
             else:
                 print('Invalid choice')
 
-def products_menu(self):
-    """Display the Products menu."""
+    def products_menu(self):
+        """Display the Products menu."""
 
-    while True:
-        print("\n=== Products Menu ===")
-        print("1. View Products")
-        print("2. Add Product")
-        print("3. Update Product")
-        print("4. Delete Product")
-        print("5. Back")
+        while True:
+            print("\n=== Products Menu ===")
+            print("1. View Products")
+            print("2. Add Product")
+            print("3. Update Product")
+            print("4. Delete Product")
+            print("5. Back")
 
-        choice = input("Enter your choice: ")
+            choice = input("Enter your choice: ")
 
-        if choice == "1":
-            products = self.DB.get_all_products()
+            if choice == "1":
+                products = self.DB.get_all_products()
 
-            print("\n=== Products ===")
+                print("\n=== Products ===")
 
-            if not products:
-                print("No products found.")
+                if not products:
+                    print("No products found.")
+                else:
+                    for product in products:
+                        print(product)
+
+            elif choice == "2":
+                name = input("Product name: ")
+                price = float(input("Price: "))
+                description = input("Description: ")
+
+                self.DB.add_product(name, price, description)
+
+                print("Product added successfully!")
+
+            elif choice == "3":
+                product_id = int(input("Product ID: "))
+                name = input("New product name: ")
+                price = float(input("New price: "))
+                description = input("New description: ")
+
+                self.DB.update_product(
+                    product_id,
+                    name,
+                    price,
+                    description
+                )
+
+                print("Product updated successfully!")
+
+            elif choice == "4":
+                print("Delete Product coming soon...")
+
+            elif choice == "5":
+                break
+
             else:
-                for product in products:
-                    print(product)
-
-        elif choice == "2":
-            name = input("Product name: ")
-            description = input("Description: ")
-
-            self.DB.add_product(name, description)
-
-            print("Product added successfully!")
-
-        elif choice == "3":
-            print("Update Product coming soon...")
-
-        elif choice == "4":
-            print("Delete Product coming soon...")
-
-        elif choice == "5":
-            break
-
-        else:
-            print("Invalid choice.")
+                print("Invalid choice.")
