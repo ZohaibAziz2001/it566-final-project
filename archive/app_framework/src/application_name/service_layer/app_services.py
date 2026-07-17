@@ -14,13 +14,6 @@ class AppServices(ApplicationBase):
 				   logfile_prefix_name=self.META["log_prefix"])
         self.DB = MySQLPersistenceWrapper(config)
         self._logger.log_debug(f'{inspect.currentframe().f_code.co_name}:It works!')
-    def get_all_products(self):
-        """Get all products."""
-        return self.DB.get_all_products()
-
-    def add_product(self, name, price, description):
-        """Add a product."""
-        self.DB.add_product(name, price, description)
-    def update_product(self, product_id, name, price, description):
-        """Update a product."""
-        self.DB.update_product(product_id, name, price, description)
+    def delete_product(self, product_id):
+        """Delete a product."""
+        self.DB.delete_product(product_id)
