@@ -105,9 +105,7 @@ class UserInterface(ApplicationBase):
                 print("Product updated successfully!")
 
             elif choice == "4":
-                product_id = int(input("Product ID to delete: "))
-                self.DB.delete_product(product_id)
-                print("Product deleted successfully!")
+                print("Delete Product coming soon...")
 
             elif choice == "5":
                 break

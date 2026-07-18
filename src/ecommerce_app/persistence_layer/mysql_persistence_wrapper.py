@@ -148,25 +148,3 @@ class MySQLPersistenceWrapper(ApplicationBase):
             self._logger.log_error(
                 f"update_product error: {e}"
             )
-    def delete_product(self, product_id):
-        """Delete a product."""
-
-        try:
-            conn = self._connection_pool.get_connection()
-            cursor = conn.cursor()
-
-            sql = """
-            DELETE FROM product
-            WHERE product_id = %s
-            """
-
-            cursor.execute(sql, (product_id,))
-            conn.commit()
-
-            cursor.close()
-            conn.close()
-
-        except Exception as e:
-            self._logger.log_error(
-                f"delete_product error: {e}"
-            )
