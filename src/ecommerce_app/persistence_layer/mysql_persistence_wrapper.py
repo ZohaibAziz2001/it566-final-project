@@ -41,6 +41,7 @@ class MySQLPersistenceWrapper(ApplicationBase):
         self._connection_pool = self._initialize_database_connection_pool(
             self.DB_CONFIG
         )
+
     def get_all_products(self):
         """Fetch all products from database."""
         try:
@@ -119,6 +120,7 @@ class MySQLPersistenceWrapper(ApplicationBase):
             self._logger.log_error(
                 f'{inspect.currentframe().f_code.co_name}: Check DB config:\n{json.dumps(self.DATABASE)}'
             )
+
     def update_product(self, product_id, name, price, description):
         """Update a product."""
 
@@ -147,4 +149,101 @@ class MySQLPersistenceWrapper(ApplicationBase):
         except Exception as e:
             self._logger.log_error(
                 f"update_product error: {e}"
+            )
+
+    def get_all_collections(self):
+        """Fetch all collections from database."""
+
+        try:
+            conn = self._connection_pool.get_connection()
+            cursor = conn.cursor(dictionary=True)
+
+            cursor.execute("SELECT * FROM collection")
+            results = cursor.fetchall()
+
+            cursor.close()
+            conn.close()
+
+            return results
+
+        except Exception as e:
+            self._logger.log_error(
+                f"get_all_collections error: {e}"
+            )
+            return []
+
+    def add_collection(self, name, description):
+        """Insert a new collection."""
+
+        try:
+            conn = self._connection_pool.get_connection()
+            cursor = conn.cursor()
+
+            sql = """
+            INSERT INTO collection
+            (collection_name, description)
+            VALUES (%s, %s)
+            """
+
+            cursor.execute(sql, (name, description))
+            conn.commit()
+
+            cursor.close()
+            conn.close()
+
+        except Exception as e:
+            self._logger.log_error(
+                f"add_collection error: {e}"
+            )
+
+    def update_collection(self, collection_id, name, description):
+        """Update a collection."""
+
+        try:
+            conn = self._connection_pool.get_connection()
+            cursor = conn.cursor()
+
+            sql = """
+            UPDATE collection
+            SET collection_name = %s,
+                description = %s
+            WHERE collection_id = %s
+            """
+
+            cursor.execute(
+                sql,
+                (name, description, collection_id)
+            )
+
+            conn.commit()
+
+            cursor.close()
+            conn.close()
+
+        except Exception as e:
+            self._logger.log_error(
+                f"update_collection error: {e}"
+            )
+
+    def delete_collection(self, collection_id):
+        """Delete a collection."""
+
+        try:
+            conn = self._connection_pool.get_connection()
+            cursor = conn.cursor()
+
+            sql = """
+            DELETE FROM collection
+            WHERE collection_id = %s
+            """
+
+            cursor.execute(sql, (collection_id,))
+            conn.commit()
+
+            cursor.close()
+            conn.close()
+
+        except Exception as e:
+            self._logger.log_error(
+                f"delete_collection error: {e}"
             )
