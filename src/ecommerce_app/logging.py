@@ -22,7 +22,7 @@ class LoggingService():
             self.log_level = logging.NOTSET
         elif self._settings_dict['log_level'] == 'debug':
             self._logger.setLevel(logging.DEBUG)
-            self.log_level = logging.debug
+            self.log_level = logging.DEBUG
         elif self._settings_dict['log_level'] == 'info':
             self._logger.setLevel(logging.INFO)
             self.log_level = logging.INFO
@@ -50,11 +50,19 @@ class LoggingService():
                 self._logger.addHandler(self._ch)
 
             if self._settings_dict['log_to_file']:
-                log_file = os.path.join(self._settings_dict['logs_dir'], 
-                            f"{self._logfile_prefix_name}_" \
-                            f"{self._settings_dict['log_filename']}")
-                self._fh = logging.handlers.TimedRotatingFileHandler(log_file, 
-                            when='midnight', backupCount=20)
+                log_file = os.path.join(
+                    self._settings_dict['logs_dir'],
+                    f"{self._logfile_prefix_name}_"
+                    f"{self._settings_dict['log_filename']}"
+                )
+
+                os.makedirs(os.path.dirname(log_file), exist_ok=True)
+
+                self._fh = logging.handlers.TimedRotatingFileHandler(
+                    log_file,
+                    when='midnight',
+                    backupCount=20
+                )
                 self._fh.setLevel(logging.DEBUG)
                 self._fh.setFormatter(self._formatter)
                 self._logger.addHandler(self._fh)
