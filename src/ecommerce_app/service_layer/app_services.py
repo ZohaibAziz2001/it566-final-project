@@ -24,6 +24,10 @@ class AppServices(ApplicationBase):
     def update_product(self, product_id, name, price, description):
         """Update a product."""
         self.DB.update_product(product_id, name, price, description)
+    def delete_product(self, product_id):
+        """Delete a product."""
+        self.DB.delete_product(product_id)
+
     # COLLECTIONS
 
     def get_all_collections(self):
